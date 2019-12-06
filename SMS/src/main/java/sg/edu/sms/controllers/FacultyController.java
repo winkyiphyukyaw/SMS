@@ -23,9 +23,9 @@ import sg.edu.sms.repositories.CourseRepository;
 @RequestMapping("/faculty")
 public class FacultyController {
 
-
 	@Autowired
 	private CourseRepository prepo;
+
 	@GetMapping("/list")
 	public String listAll(Model model) {
 		ArrayList<Course> clist = new ArrayList<Course>();
@@ -33,32 +33,33 @@ public class FacultyController {
 		model.addAttribute("courses", clist);
 		return "course";
 	}
-	
+
 	@GetMapping("/addCourse")
 	public String showAddForm(Model model) {
 		Course course = new Course();
 		model.addAttribute("course", course);
 		return "courseform";
 	}
-	
+
 	@GetMapping("/save")
 	public String saveProduct(@Valid @ModelAttribute Course course, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			//model.addAttribute("product", product);
+			// model.addAttribute("product", product);
 
 			return "courseform";
 		}
 		prepo.save(course);
 		return "redirect:/faculty/list";
 	}
-	
+
 	@GetMapping("/edit/{id}")
-	public String showEditForm(Model model, @PathVariable("id") Integer id) {	
+	public String showEditForm(Model model, @PathVariable("id") Integer id) {
 		Course course = prepo.findById(id).get();
 		prepo.delete(course);
 		model.addAttribute("course", course);
 		return "courseform";
 	}
+
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
 		Course course = prepo.findById(id).get();
@@ -66,38 +67,38 @@ public class FacultyController {
 		return "redirect:/faculty/list";
 	}
 
-	 @GetMapping("/course/find")
-	    public String initFindForm(Map<String, Object> model) {
-	        model.put("courseFind", new Course());
-	        return "findCourses";
-	    }
+	@GetMapping("/course/find")
+	public String initFindForm(Map<String, Object> model) {
+		model.put("courseFind", new Course());
+		return "findCourses";
+	}
+
+	@GetMapping("/courses")
+	public String processFindForm(Course course, BindingResult result, Map<String, Object> model) {
+
+		if (course.getCourseName() == null) {
+			course.setCourseName("");
+		}
+//	      for (Course c : prepo.findByCourseName(course.getCourseName())) {
+//				System.out.println("Course info: " + c.toString());
+//			}
+		ArrayList<Course> results = prepo.findByCourseName(course.getCourseName());
+		if (results.isEmpty()) {
+			result.rejectValue("courseName", "notFound", "not found");
+			model.put("courseFind", course);
+			return "findCourses";
+			// System.out.println("Not found");
+		} else if (results.size() == 1) {
+			// 1 owner found
+			course = results.iterator().next();
+			model.put("course", course);
+			return "courseDetails";
+		} else {
+
+			// System.out.println(course.getCourseName());
+			return "redirect:/faculty/list";
+		}
+	}
 
 	
-//	  @GetMapping("/courses")
-//	    public String processFindForm(Course course, BindingResult result, Map<String, Object> model) {
-//       		
-//	        if (course.getCourseName() == null) {
-//	            course.setCourseName("");
-//	        }
-////	      for (Course c : prepo.findByCourseName(course.getCourseName())) {
-////				System.out.println("Course info: " + c.toString());
-////			}
-//	        ArrayList<Course> results = prepo.findByCourseName(course.getCourseName());
-//	        if (results.isEmpty()) {
-//	            
-//	            result.rejectValue("course", "notFound", "not found");
-//	            return "findCourses";
-//	            // System.out.println("Not found");
-//		} /*
-//			 * else if (results.size() == 1) { // 1 owner found 
-//			 * course = results.iterator().next();
-//			 *  return "" + course.getCourseName();
-//			 *   }
-//			 */ else {
-//	            
-//	         // System.out.println(course.getCourseName());
-//	           return "faculty/list";
-//	        }
-//	    }
-
-	}
+}
