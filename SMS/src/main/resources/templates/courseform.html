@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<title>Product Form</title>
+</head>
+<body>
+<div th:insert="~{home :: home}">Home</div>
+<h1>Course Form</h1>
+	<form th:object="${course}" th:action="@{/faculty/save}" method="get">
+		<fieldset>
+			Course Name: <input type="text" th:field="*{courseName}" >
+			<p th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></p>
+		</fieldset>
+		<fieldset>
+			Start Date: <input type="text" th:field="*{startDate}">
+			<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+		</fieldset>
+		<fieldset>
+			End Date: <input type="text" th:field="*{endDate}">
+			<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+		</fieldset>		
+		<fieldset>
+			<button type="submit">Save</button>
+		</fieldset>
+
+	</form>
+	<div th:insert="~{home :: copy}">Copy</div>
+</body>
+</html>

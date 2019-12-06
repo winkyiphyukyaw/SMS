@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<title th:utext=#{courses.title}>title</title>
+</head>
+<body>
+
+	<!-- Add Hyperlink -->
+	<a href="AddCourse.html" th:href="@{/faculty/addCourse}"
+		th:utext="#{courses.addlabel}">label</a>
+
+<a href="SearchCourse.html" th:href="@{/faculty/course/find}"
+		th:utext="#{courses.searchCourse}">label</a>
+	<h2 th:utext="#{courses.header}">header</h2>
+	<table class="w3-container">
+		<tr th:each="c:${courses}">			
+			<td th:text=${c.courseName}>Name</td>
+			<td th:text=${c.startDate}>Start Date</td>
+			<td th:text=${c.endDate}>End Date</td>
+			<td><a href="EditCourse.html"
+				th:href="@{/faculty/edit/}+${c.id}"> Edit </a></td>
+			<td><a href="DeleteProduct.html"
+				th:href="@{/faculty/delete/}+${c.id}"> Delete </a></td>
+		</tr>
+	</table>
+	
+</body>
+</html>

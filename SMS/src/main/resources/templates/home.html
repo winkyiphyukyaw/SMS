@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+</head>
+<body>
+	<div th:fragment="home" class="w3-panel w3-pale-blue w3-card">
+		<div class="w3-container w3-tangerine">
+			<p class="w3-large" align="center">Beautiful Header</p>
+			<!-- Link to different login pages -->
+			<!-- <a href="">Application</a> <br /> <a href="Admin"
+				th:href="@{/login}+${staff.role=1}">Admin Login</a> <br /> <a href="Student"
+				th:href="@{/login}+${staff.role=2}">Student Login</a> <br /> <a
+				href="Faculty" th:href="@{/login}+${staff.role=3}">Faculty Login</a> <br /> -->
+				<a href="">Application</a> <br />
+				 <a href="Admin" th:href="@{/login}">Admin Login</a> <br /> 
+				 <a href="Student" th:href="@{/login}">Student Login</a> <br /> 
+				 <a href="Faculty" th:href="@{/login}">Faculty Login</a> <br />
+		</div>
+
+	</div>
+	<div class="w3-container">
+		<h1>Welcome to Your Wonderful Project</h1>
+		<h2>Some interesting story about your team</h2>
+	</div>
+	<div th:fragment="copy">
+		<p class="w3-wide" align="center">&copy; 2019 ISS, NUS, All Rights
+			Reserved</p>
+	</div>
+</body>
+</html>
