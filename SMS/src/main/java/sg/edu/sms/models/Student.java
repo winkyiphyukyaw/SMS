@@ -19,7 +19,6 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Entity
 public class Student {
 
-	SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd"); 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;	

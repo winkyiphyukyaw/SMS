@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<title>Master List</title>
+</head>
+<body>
+
+<div th:fragment="home" class="w3-panel w3-pale-blue w3-card">
+		<div class="w3-container w3-tangerine">
+			<p class="w3-large" align="center">Beautiful Header</p>
+				<a href="Course Lists"  th:href="@{/faculty/list}">List of Courses</a> <br />
+				 <a href="Student Lists" th:href="@{/faculty/listStudent}">List of Students</a> <br /> 
+				 <a href="Score Cards" th:href="@{/faculty/score}">Score Cards</a> <br /> 
+		</div>
+
+	</div>
+<h1>Students</h1>
+	<table class="w3-container" border="1">
+		<tr th:each="s:${students}">
+			<td th:text=${s.id}>Id</td>
+			<td th:text=${s.studentName}>Name</td>
+			<td th:text=${s.gender}>Gender</td>
+			<td th:text=${s.DOB}>Dob</td>
+			<td th:text=${s.degree}>Degree</td>
+			<td th:text=${s.semester}>Semester</td>
+			<td th:text=${s.address}>Address</td>
+			<td th:text=${s.mobile}>Mobile</td>
+			<td th:text=${s.gpa}>GPA</td>
+			<td><a href="EditStudent.html"
+				th:href="@{/faculty/editStudent/}+${s.id}"> Edit </a></td>
+			<td><a href="DeleteStudent.html"
+				th:href="@{/faculty/deleteStudent/}+${s.id}"> Delete </a></td>
+
+		</tr>
+	</table>
+	<h2 th:utext="#{courses.header}">header</h2>
+	<table class="w3-container">
+		<tr th:each="c:${courses}">			
+			<td th:text=${c.courseName}>Name</td>
+			<td th:text=${c.startDate}>Start Date</td>
+			<td th:text=${c.endDate}>End Date</td>
+			<td><a href="EditCourse.html"
+				th:href="@{/faculty/editCourse/}+${c.id}"> Edit </a></td>
+			<td><a href="DeleteProduct.html"
+				th:href="@{/faculty/deleteCourse/}+${c.id}"> Delete </a></td>
+		</tr>
+	</table>
+</body>
+</html>

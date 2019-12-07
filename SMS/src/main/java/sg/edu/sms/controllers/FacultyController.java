@@ -16,15 +16,111 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import sg.edu.sms.models.Course;
+import sg.edu.sms.models.Student;
 import sg.edu.sms.repositories.CourseRepository;
+import sg.edu.sms.repositories.StudentRepository;
 
 @Controller
 @RequestMapping("/faculty")
 public class FacultyController {
-
 	@Autowired
+	private final StudentRepository sturepo;
 	private CourseRepository prepo;
+
+	public FacultyController(StudentRepository sturepo, CourseRepository prepo) {
+		this.sturepo = sturepo;
+		this.prepo = prepo;
+	}
+
+	// Master List
+	@GetMapping("/masterlist")
+	public String facultyHome(Model model) {
+		ArrayList<Student> slist = new ArrayList<Student>();
+		ArrayList<Course> clist = new ArrayList<Course>();
+		slist.addAll(sturepo.findAll());
+		clist.addAll(prepo.findAll());
+		model.addAttribute("courses", clist);
+		model.addAttribute("students", slist);
+		return "masterList";
+	}
+
+	// Student's CRUD
+
+	@GetMapping("/listStudent")
+	public String showStudents(Model model) {
+		ArrayList<Student> slist = new ArrayList<Student>();
+		slist.addAll(sturepo.findAll());
+		model.addAttribute("students", slist);
+		return "students";
+
+	}
+
+	@GetMapping("/createStudent")
+	public String createStudent(Model model) {
+		Student student = new Student();
+		model.addAttribute("student", student);
+
+		return "studentform";
+
+	}
+
+	@GetMapping("/saveStudent")
+	public String saveStudent(@Valid @ModelAttribute Student student, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "studentform";
+		}
+		sturepo.save(student);
+		return "forward:/faculty/listStudent";
+	}
+
+	@GetMapping("/editStudent/{id}")
+	public String editStudent(Model model, @PathVariable("id") Integer id) {
+		Student student = sturepo.findById(id).get();
+		sturepo.delete(student);
+		model.addAttribute("student", student);
+		return "studentform";
+
+	}
+
+	@GetMapping("/deleteStudent/{id}")
+	public String deleteStudent(Model model, @PathVariable("id") Integer id) {
+		Student student = sturepo.findById(id).get();
+
+		sturepo.delete(student);
+		return "redirect:/faculty/listStudent";
+	}
+
+	@GetMapping("/score")
+	public String scoreCard(Model model) {
+		ArrayList<Student> students = new ArrayList<Student>();
+		students.addAll(sturepo.findAll());
+
+		model.addAttribute("students", students);
+		return "scorecard";
+
+	}
+
+	@GetMapping("/edit/{id}")
+	public String editScore(Model model, @PathVariable("id") Integer id) {
+		Student student = sturepo.findById(id).get();
+
+		model.addAttribute("student", student);
+		return "editform";
+
+	}
+
+	@GetMapping("/saveEdit")
+	public String saveEdit(@ModelAttribute Student student) {
+
+		// sturepo.updateGpa(student.getId(), student.getGpa());
+		sturepo.delete(student);
+		sturepo.save(student);
+		return "forward:/faculty/listStudent";
+	}
+
+	// Course's CRUD
 
 	@GetMapping("/list")
 	public String listAll(Model model) {
@@ -44,15 +140,13 @@ public class FacultyController {
 	@GetMapping("/save")
 	public String saveProduct(@Valid @ModelAttribute Course course, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			// model.addAttribute("product", product);
-
 			return "courseform";
 		}
 		prepo.save(course);
 		return "redirect:/faculty/list";
 	}
 
-	@GetMapping("/edit/{id}")
+	@GetMapping("/editCourse/{id}")
 	public String showEditForm(Model model, @PathVariable("id") Integer id) {
 		Course course = prepo.findById(id).get();
 		prepo.delete(course);
@@ -60,7 +154,7 @@ public class FacultyController {
 		return "courseform";
 	}
 
-	@GetMapping("/delete/{id}")
+	@GetMapping("/deleteCourse/{id}")
 	public String deleteMethod(Model model, @PathVariable("id") Integer id) {
 		Course course = prepo.findById(id).get();
 		prepo.delete(course);
@@ -100,5 +194,4 @@ public class FacultyController {
 		}
 	}
 
-	
 }

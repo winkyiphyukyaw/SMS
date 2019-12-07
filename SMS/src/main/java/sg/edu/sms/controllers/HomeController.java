@@ -40,7 +40,7 @@ public class HomeController {
 	@PostMapping("/authenticate")
 	public String getAuthentication(@ModelAttribute("user") UserSession user, BindingResult bindingResult) {
 		if(user.getName().equalsIgnoreCase("kyiphyu"))
-			return "redirect:/faculty/list";
+			return "redirect:/faculty/masterlist";
 		else
 			return "login";
 	}
