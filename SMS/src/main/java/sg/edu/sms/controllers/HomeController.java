@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import sg.edu.sms.models.UserSession;
 
 
 @Controller
+@RequestMapping("/sms")
 public class HomeController {
+	
 	@GetMapping("/home")
 	public String getHome() {
 		return "home";
