@@ -1,5 +1,7 @@
 package sg.edu.sms.models;
 
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,8 +32,8 @@ public class Course {
 	@DateTimeFormat(iso=ISO.DATE)	
 	private Date endDate;
 
-	@ManyToMany(mappedBy = "courses")
-	private List<Student> students;
+//	@ManyToMany(mappedBy = "courses")
+//	private List<Student> students;
 
 	@ManyToOne
 	private Staff staffName;
@@ -38,6 +41,10 @@ public class Course {
 	@ManyToOne
 	private Department departmentName;
 
+	@OneToMany (targetEntity = Student.class,mappedBy = "course")
+	private List<Student> student;
+ 	
+	
 	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -49,7 +56,7 @@ public class Course {
 		this.courseName = courseName;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.students = students;
+		//this.students = students;
 		this.staffName = staffName;
 		this.departmentName = departmentName;
 	}
@@ -86,13 +93,6 @@ public class Course {
 		this.endDate = endDate;
 	}
 
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
 
 	public Staff getStaffName() {
 		return staffName;
@@ -113,7 +113,7 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [id=" + id + ", name=" + courseName + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", students=" + students + ", staffName=" + staffName + ", departmentName=" + departmentName + "]";
+				+ ", students=" +  ", staffName=" + staffName + ", departmentName=" + departmentName + "]";
 	}
 
 	@Override

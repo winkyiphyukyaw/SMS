@@ -23,11 +23,8 @@ public class Staff {
 	private Department departmentName;
 
 	@OneToMany(mappedBy = "staffName")
-	private List<Student> students;
-
-	@OneToMany(mappedBy = "staffName")
 	private List<Course> courses;
-
+	
 	public Staff() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -37,7 +34,7 @@ public class Staff {
 		super();
 		this.role = role;
 		this.departmentName = departmentName;
-		this.students = students;
+		//this.students = students;
 		this.courses = courses;
 	}
 
@@ -62,7 +59,7 @@ public class Staff {
 		this.name = name;
 		this.role = role;
 		this.departmentName = departmentName;
-		this.students = students;
+		//this.students = students;
 		this.courses = courses;
 	}
 
@@ -82,13 +79,13 @@ public class Staff {
 		this.departmentName = departmentName;
 	}
 
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
+//	public List<Student> getStudents() {
+//		return students;
+//	}
+//
+//	public void setStudents(List<Student> students) {
+//		this.students = students;
+//	}
 
 	public List<Course> getCourses() {
 		return courses;
@@ -100,8 +97,7 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [id=" + id + ", role=" + role + ", departmentName=" + departmentName + ", students=" + students
-				+ ", courses=" + courses + "]";
+		return "Staff [id=" + id + ", role=" + role + ", departmentName=" + departmentName + ", students=" + ", courses=" + courses + "]";
 	}
 
 	@Override

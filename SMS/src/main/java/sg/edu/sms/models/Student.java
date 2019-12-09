@@ -32,12 +32,17 @@ public class Student {
 	private int mobile;
 	private double gpa;
 	
-	@ManyToOne
-	private Staff staffName;
+//	@ManyToOne
+//	private Staff staffName;
 
-	@ManyToMany
-	@JoinTable(name="Student_Course", joinColumns=@JoinColumn(name="studentName_id"), inverseJoinColumns=@JoinColumn(name="courseName_id"))
-	private List<Course> courses;
+//	@ManyToMany
+//	@JoinTable(name="Student_Course", joinColumns=@JoinColumn(name="studentName_id"), inverseJoinColumns=@JoinColumn(name="courseName_id"))
+//	private List<Course> courses;
+	
+	@ManyToOne
+	@JoinColumn(name= "CourseID")
+	private Course course;
+	
 	
 	
 	public Student() {
@@ -56,8 +61,7 @@ public class Student {
 		this.address = address;
 		this.mobile = mobile;
 		this.gpa = gpa;
-		this.staffName = staffName;
-		this.courses = courses;
+		
 	}
 
 	public int getId() {
@@ -132,27 +136,13 @@ public class Student {
 		this.gpa = gpa;
 	}
 
-	public Staff getStaffName() {
-		return staffName;
-	}
-
-	public void setStaffName(Staff staffName) {
-		this.staffName = staffName;
-	}
-
-	public List<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", studentName=" + studentName + ", gender=" + gender + ", DOB=" + DOB
 				+ ", degree=" + degree + ", semester=" + semester + ", address=" + address + ", mobile=" + mobile
-				+ ", gpa=" + gpa + ", staffName=" + staffName + ", courses=" + courses + "]";
+				+ ", gpa=" + gpa + ", staffName=" +  ", courses=" + "]";
 	}
 
 	@Override
