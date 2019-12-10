@@ -180,18 +180,43 @@ public class FacultyController {
 		if (results.isEmpty()) {
 			result.rejectValue("courseName", "notFound", "not found");
 			model.put("courseFind", course);
-			return "findCourses";
-			// System.out.println("Not found");
-		} else if (results.size() == 1) {
-			// 1 owner found
+			return "findCourses";			
+		} else if (results.size()>0) {
 			course = results.iterator().next();
 			model.put("course", course);
 			return "courseDetails";
 		} else {
-
-			// System.out.println(course.getCourseName());
 			return "redirect:/faculty/list";
 		}
 	}
 
+	@GetMapping("/course/findStudentByCourse")
+	public String getStudentsByCourseName(Map<String, Object> model) {
+		model.put("findStuByCourseName", new Course());
+		return "findStusByCourseName";
+	}
+	
+	@GetMapping("/findStudsByCN")
+	public String findStudsByCourseName(Course course, BindingResult result, Model model) {
+
+		ArrayList<Student> slist = new ArrayList<Student>();
+		if (course.getCourseName() == null) {
+			course.setCourseName("");
+		}
+//	      for (Student s : prepo.findStudentByCourseName(course.getCourseName())) {
+//				System.out.println("Student info: " + s.getStudentName());
+//			}
+		ArrayList<Student> results = prepo.findStudentByCourseName(course.getCourseName());
+		if (results.isEmpty()) {
+			String s="Course Name does not found";
+			model.addAttribute("findStuByCourseName", course);
+	            return "findStusByCourseName";
+		} else  {
+			// found
+			
+			slist.addAll(prepo.findStudentByCourseName(course.getCourseName()));
+			model.addAttribute("studentFindByCourse", slist);
+			return "StusByCourseName";
+		} 
+	}
 }
