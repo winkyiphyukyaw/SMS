@@ -9,7 +9,7 @@
 <body>
 	<div th:insert="~{home :: home}">Home</div>
 	<h1>Login Page</h1>
-	<form th:object="${user}" th:action="@{/authenticate}" method="post"
+	<form th:object="${user}" th:action="@{/sms/authenticate}" method="post"
 		class="w3-container">
 		<fieldset>
 			<p>Name: <input type="text" th:field="${user.name}" class="w3-input">
