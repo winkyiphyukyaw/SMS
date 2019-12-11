@@ -3,24 +3,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Master List</title>
 </head>
 <body>
 
-<div th:fragment="home" class="w3-panel w3-pale-blue w3-card">
-		<div class="w3-container w3-tangerine">
-			<p class="w3-large" align="center">Beautiful Header</p>
-				<a href="Course Lists"  th:href="@{/faculty/list}">List of Courses</a> <br />
-				 <a href="Student Lists" th:href="@{/faculty/listStudent}">List of Students</a> <br /> 
-				 <a href="Score Cards" th:href="@{/faculty/score}">Score Cards</a> <br /> 
-		</div>
-
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3>Faculty's Page</h3>
 	</div>
-<h1>Students</h1>
-	<table class="w3-container" border="1">
-		<tr th:each="s:${students}">
-			<td th:text=${s.id}>Id</td>
+	<div class="w3-bar w3-border w3-light-grey" style="width: 1400px;">
+		<a href="Admin" class="w3-bar-item w3-button"
+			th:href="@{/faculty/list}">List of Courses</a> <a href="Student"
+			class="w3-bar-item w3-button" th:href="@{/faculty/listStudent}">List
+			of Students</a> <a href="Faculty" class="w3-bar-item w3-button"
+			th:href="@{/faculty/score}">Score Cards</a>
+	</div>
+
+
+	<h5 align="center">Student List Table</h5>
+	<table align="center" class="table table-striped" border="1"
+		th:each="s:${students}">
+		<tr>
 			<td th:text=${s.studentName}>Name</td>
 			<td th:text=${s.gender}>Gender</td>
 			<td th:text=${s.DOB}>Dob</td>
@@ -36,9 +40,9 @@
 
 		</tr>
 	</table>
-	<h2 th:utext="#{courses.header}">header</h2>
-	<table class="w3-container">
-		<tr th:each="c:${courses}">			
+	<h5 th:utext="#{courses.header}" align="center">header</h5>
+	<table align="center" class="table table-striped" border="1">
+		<tr th:each="c:${courses}">
 			<td th:text=${c.courseName}>Name</td>
 			<td th:text=${c.startDate}>Start Date</td>
 			<td th:text=${c.endDate}>End Date</td>

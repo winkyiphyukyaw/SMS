@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<title>Login</title>
+</head>
+<div class="w3-container">
+	<div align="center" id="myDiv"
+		style="height: 100px; width: 1400px; background-color: lightblue">
+		<h1>Student Login</h1>
+	</div>
+	<div class="w3-bar w3-border w3-light-grey" style="width: 1400px;">
+		<a href="Home" class="w3-bar-item w3-button" th:href="@{/sms/home}">Home</a>
+	</div>
+	<div align="center" class="column" id="myDiv"
+		style="height: 800px; width: 1400px;">
+		<form th:object="${student}" th:action="@{/sms/Sauthenticate}"
+			method="post" class="w3-container">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" th:field="${student.id}"
+						class="w3-input"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" th:field="${student.password}"
+						class="w3-input"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button type="submit">Submit</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div th:insert="~{home :: copy}">Copy</div>
+</div>
+
+</html>

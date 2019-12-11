@@ -5,6 +5,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div th:fragment="home" align="left" id="myDiv" style="height:50px; width:1400px; background-color:lightblue">
+	<h3>Edit Course Form</h3>
+	</div>
 	<form th:object="${student}" th:action="@{/faculty/saveEdit}"
 		method="get">
 		<fieldset>

@@ -3,24 +3,29 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title th:utext=#{courses.title}>title</title>
 </head>
 <body>
 
-	<!-- Add Hyperlink -->
-	<a href="AddCourse.html" th:href="@{/faculty/addCourse}"
-		th:utext="#{courses.addlabel}">label</a>
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3 th:utext="#{courses.header}">header</h3>
+	</div>
 
-<a href="SearchCourse.html" th:href="@{/faculty/course/find}"
-		th:utext="#{courses.searchCourse}">label</a>
-		<br/>
-		<br/>
-		<a href="SearchStudentByCourseName.html" th:href="@{/faculty/course/findStudentByCourse}"
-		th:utext="#{courses.searchStudentByCourse}">label</a>
-	<h2 th:utext="#{courses.header}">header</h2>
-	<table class="w3-container">
-		<tr th:each="c:${courses}">			
+	<!-- Add Hyperlink -->
+	<div class="w3-bar w3-border w3-light-grey" style="width: 1400px;">
+		<a href="AddCourse.html" class="w3-bar-item w3-button"
+			th:href="@{/faculty/addCourse}" th:utext="#{courses.addlabel}">label</a>
+		<a href="SearchCourse.html" class="w3-bar-item w3-button"
+			th:href="@{/faculty/course/find}" th:utext="#{courses.searchCourse}">label</a>
+		<a href="SearchStudentByCourseName.html" class="w3-bar-item w3-button"
+			th:href="@{/faculty/course/findStudentByCourse}"
+			th:utext="#{courses.searchStudentByCourse}">label</a>
+	</div>
+
+	<table align="center" class="table table-striped" border="1">
+		<tr th:each="c:${courses}">
 			<td th:text=${c.courseName}>Name</td>
 			<td th:text=${c.startDate}>Start Date</td>
 			<td th:text=${c.endDate}>End Date</td>
@@ -30,6 +35,6 @@
 				th:href="@{/faculty/deleteCourse/}+${c.id}"> Delete </a></td>
 		</tr>
 	</table>
-	
+	<div th:insert="~{home :: copy}">Copy</div>
 </body>
 </html>

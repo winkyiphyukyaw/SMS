@@ -3,10 +3,11 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
   <body>
+  <div th:fragment="home" align="left" id="myDiv" style="height:50px; width:1400px; background-color:lightblue">
+	<h3>Course's Details</h3>
+	</div>
   
-  
-    <h2>Course Information</h2>
-  
+    
   
     <table class="table table-striped" th:object="${course}">
       <tr>

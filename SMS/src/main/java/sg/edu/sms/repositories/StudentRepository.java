@@ -15,4 +15,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Transactional
 	@Query("UPDATE Student s SET s.gpa = :gpa WHERE s.id = :sid")
 	int updateGpa(@Param("sid") int id, @Param("gpa") double gpa);
+	@Query("select s from Student s where s.id= :stdId")
+	public Student findStudentByid(@Param("stdId") int stdId);
+	
+	
+	@Query("select s from Student s where s.id=1")
+	public Student findxByid();
 }

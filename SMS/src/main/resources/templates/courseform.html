@@ -7,8 +7,10 @@
 <title>Product Form</title>
 </head>
 <body>
-<div th:insert="~{home :: home}">Home</div>
-<h1>Course Form</h1>
+<div th:fragment="home" align="left" id="myDiv" style="height:50px; width:1400px; background-color:lightblue">
+	<h3>Course Form</h3>
+	</div>
+
 	<form th:object="${course}" th:action="@{/faculty/save}" method="get">
 		<fieldset>
 			Course Name: <input type="text" th:field="*{courseName}" >

@@ -5,21 +5,20 @@
 <title>Score Card</title>
 </head>
 <body>
-<h1>Score card</h1>
-<table class="w3-container" border=1>
-<tr th:each="s:${students}">
-<td th:text=${s.studentName}>Student Name
-</td>
-<td th:text=${s.gpa}>Student Gpa
-</td>
-<td>
-<td><a href="Edit.html"
-				th:href="@{/faculty/edit/}+${s.id}"> Edit </a></td>
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3>Score Cards</h3>
+	</div>
 
-</td>
-</tr>
 
-</table>
+	<table class="table table-striped" th:each="s:${students}" border=1>
+		<tr>
+			<td th:text=${s.studentName}>Student Name</td>
+			<td th:text=${s.gpa}>Student GPA</td>
+			<td><a href="Edit.html" th:href="@{/faculty/edit/}+${s.id}">
+					Edit </a></td>
+		</tr>
+	</table>
 
 </body>
 </html>

@@ -2,18 +2,19 @@
 
 <html xmlns:th="https://www.thymeleaf.org">
 
-  <body>  
-  
-    <h2>Course Information</h2>
-  
-  <table th:object="${course}">
-  	<tr>
-        <th>Course Name</th>
-        <td><b th:text="*{courseName}"></b></td>
-      </tr>
-  </table>
-   
-     <table class="w3-container" border="1">
+<body>
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3>Course Information</h3>
+	</div>
+	<table th:object="${course}">
+		<tr>
+			<th>Course Name</th>
+			<td><b th:text="*{courseName}"></b></td>
+		</tr>
+	</table>
+
+	<table class="w3-container" border="1">
 		<tr th:each="s:${studentFindByCourse}">
 			<td th:text=${s.id}>Id</td>
 			<td th:text=${s.studentName}>Name</td>
@@ -27,14 +28,14 @@
 		</tr>
 	</table>
 
-  
- 
-  
-    <br />
-    <br />
-    <br />
-   
-  
-  </body>
+
+
+
+	<br />
+	<br />
+	<br />
+
+
+</body>
 
 </html>

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Students Page</title>
 </head>
 <body>
-	<h1>Students</h1>
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3>Student's Details</h3>
+	</div>
+
 	<table class="w3-container" border="1">
 		<tr th:each="s:${students}">
 			<td th:text=${s.id}>Id</td>
@@ -24,7 +30,10 @@
 
 		</tr>
 	</table>
-	<a href="AddStudent.html" th:href="@{/faculty/createStudent}">Add Student</a>
+
+	<a href="AddStudent.html" class="w3-bar-item w3-button"
+		th:href="@{/faculty/createStudent}">Add Student</a>
+
 
 </body>
 </html>

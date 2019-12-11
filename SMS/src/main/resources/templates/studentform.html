@@ -5,7 +5,11 @@
 <title>Student Form Page</title>
 </head>
 <body>
-	<h1>Student Form Page</h1>
+	<div th:fragment="home" align="left" id="myDiv"
+		style="height: 50px; width: 1400px; background-color: lightblue">
+		<h3>Student Form</h3>
+	</div>
+
 	<form th:object="${student}" th:action="@{/faculty/saveStudent}"
 		method="get">
 		<fieldset>
@@ -32,7 +36,7 @@
 		<fieldset>
 			GPA: <input type="text" th:field="*{gpa}">
 		</fieldset>
-<button type="submit">Submit</button>
+		<button type="submit">Submit</button>
 	</form>
 
 </body>
