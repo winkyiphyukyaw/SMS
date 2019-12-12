@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <meta charset="UTF-8">
 <title>Student Form Page</title>
 </head>
@@ -9,35 +20,79 @@
 		style="height: 50px; width: 1400px; background-color: lightblue">
 		<h3>Student Form</h3>
 	</div>
+	<div class="container">
+		<form th:object="${student}" th:action="@{/faculty/saveStudent}"
+			method="get">
+			<div class="form-group">
+				<fieldset>
+					<label>Name</label> <input type="text" th:field="*{studentName}"
+						class="form-control" placeholder="Name">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					<label>Gender</label> <input type="text" th:field="*{gender}"
+						class="form-control" placeholder="gender">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					DOB: <input type="text" th:field="*{DOB}" class="form-control"
+						placeholder="date of birth">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					Degree: <input type="text" th:field="*{degree}"
+						class="form-control" placeholder="degree">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					Semester: <input type="text" th:field="*{semester}"
+						class="form-control" placeholder="semester">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					Address: <input type="text" th:field="*{address}"
+						class="form-control" placeholder="address">
+				</fieldset>
+			</div>
+			<div class="form-group">
 
-	<form th:object="${student}" th:action="@{/faculty/saveStudent}"
-		method="get">
-		<fieldset>
-			Name: <input type="text" th:field="*{studentName}">
-		</fieldset>
-		<fieldset>
-			Gender: <input type="text" th:field="*{gender}">
-		</fieldset>
-		<fieldset>
-			DOB: <input type="text" th:field="*{DOB}">
-		</fieldset>
-		<fieldset>
-			Degree: <input type="text" th:field="*{degree}">
-		</fieldset>
-		<fieldset>
-			Semester: <input type="text" th:field="*{semester}">
-		</fieldset>
-		<fieldset>
-			Address: <input type="text" th:field="*{address}">
-		</fieldset>
-		<fieldset>
-			Mobile: <input type="text" th:field="*{mobile}">
-		</fieldset>
-		<fieldset>
-			GPA: <input type="text" th:field="*{gpa}">
-		</fieldset>
-		<button type="submit">Submit</button>
-	</form>
-
+				<fieldset>
+					Mobile: <input type="text" th:field="*{mobile}"
+						class="form-control" placeholder="address">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					GPA: <input type="text" th:field="*{gpa}" class="form-control"
+						placeholder="gpa">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					Password: <input type="text" th:field="*{password}"
+						class="form-control" placeholder="password" readonly="readonly">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					Mail <input type="email" th:field="*{mailid}" class="form-control"
+						placeholder="example@gmail.com">
+				</fieldset>
+			</div>
+			<div class="form-group">
+				<fieldset>
+					CourseId: <input type="text" th:field="*{course}"
+						class="form-control" placeholder="courseid">
+				</fieldset>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
 </body>
+<div th:insert="~{home :: copy}">Copy</div>
 </html>

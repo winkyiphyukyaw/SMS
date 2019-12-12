@@ -3,10 +3,13 @@ package sg.edu.sms.controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +18,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.sms.models.Course;
+import sg.edu.sms.models.Pager;
 import sg.edu.sms.models.Student;
 import sg.edu.sms.repositories.CourseRepository;
+import sg.edu.sms.repositories.StudentPaginationRepository;
 import sg.edu.sms.repositories.StudentRepository;
 
 @Controller
@@ -28,10 +34,17 @@ public class FacultyController {
 	@Autowired
 	private final StudentRepository sturepo;
 	private CourseRepository prepo;
+	private StudentPaginationRepository stupagirepo;
+	private static final int BUTTONS_TO_SHOW = 5;
+	private static final int INITIAL_PAGE = 0;
+	private static final int INITIAL_PAGE_SIZE = 5;
+	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
-	public FacultyController(StudentRepository sturepo, CourseRepository prepo) {
+	public FacultyController(StudentRepository sturepo, CourseRepository prepo,
+			StudentPaginationRepository stupagirepo) {
 		this.sturepo = sturepo;
 		this.prepo = prepo;
+		this.stupagirepo = stupagirepo;
 	}
 
 	// Master List
@@ -48,13 +61,32 @@ public class FacultyController {
 
 	// Student's CRUD
 
-	@GetMapping("/listStudent")
-	public String showStudents(Model model) {
-		ArrayList<Student> slist = new ArrayList<Student>();
-		slist.addAll(sturepo.findAll());
-		model.addAttribute("students", slist);
-		return "students";
+//	@GetMapping("/listStudent")
+//	public String showStudents(Model model) {
+//		ArrayList<Student> slist = new ArrayList<Student>();
+//		slist.addAll(sturepo.findAll());
+//		model.addAttribute("students", slist);
+//		return "students";
+//
+//	}
 
+	// New Commit ListStudent with pagination
+
+	@GetMapping("/listStudent")
+	public ModelAndView studentPage(@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
+		ModelAndView modelAndView = new ModelAndView("studentss");
+		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+		Page<Student> students = stupagirepo.findAll(PageRequest.of(evalPage, evalPageSize));
+		Pager pager = new Pager(students.getTotalPages(), students.getNumber(), BUTTONS_TO_SHOW);
+
+		modelAndView.addObject("students", students);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pageSizes", PAGE_SIZES);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
 	}
 
 	@GetMapping("/createStudent")
@@ -180,8 +212,8 @@ public class FacultyController {
 		if (results.isEmpty()) {
 			result.rejectValue("courseName", "notFound", "not found");
 			model.put("courseFind", course);
-			return "findCourses";			
-		} else if (results.size()>0) {
+			return "findCourses";
+		} else if (results.size() > 0) {
 			course = results.iterator().next();
 			model.put("course", course);
 			return "courseDetails";
@@ -195,7 +227,7 @@ public class FacultyController {
 		model.put("findStuByCourseName", new Course());
 		return "findStusByCourseName";
 	}
-	
+
 	@GetMapping("/findStudsByCN")
 	public String findStudsByCourseName(Course course, BindingResult result, Model model) {
 
@@ -208,15 +240,15 @@ public class FacultyController {
 //			}
 		ArrayList<Student> results = prepo.findStudentByCourseName(course.getCourseName());
 		if (results.isEmpty()) {
-			String s="Course Name does not found";
+			String s = "Course Name does not found";
 			model.addAttribute("findStuByCourseName", course);
-	            return "findStusByCourseName";
-		} else  {
+			return "findStusByCourseName";
+		} else {
 			// found
-			
+
 			slist.addAll(prepo.findStudentByCourseName(course.getCourseName()));
 			model.addAttribute("studentFindByCourse", slist);
 			return "StusByCourseName";
-		} 
+		}
 	}
 }

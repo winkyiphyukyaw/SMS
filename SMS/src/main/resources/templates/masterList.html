@@ -3,10 +3,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Master List</title>
 </head>
 <body>
+
+
+	<!-- New Commit Design -->
 
 	<div th:fragment="home" align="left" id="myDiv"
 		style="height: 50px; width: 1400px; background-color: lightblue">
@@ -22,35 +29,64 @@
 
 
 	<h5 align="center">Student List Table</h5>
-	<table align="center" class="table table-striped" border="1"
-		th:each="s:${students}">
-		<tr>
-			<td th:text=${s.studentName}>Name</td>
-			<td th:text=${s.gender}>Gender</td>
-			<td th:text=${s.DOB}>Dob</td>
-			<td th:text=${s.degree}>Degree</td>
-			<td th:text=${s.semester}>Semester</td>
-			<td th:text=${s.address}>Address</td>
-			<td th:text=${s.mobile}>Mobile</td>
-			<td th:text=${s.gpa}>GPA</td>
-			<td><a href="EditStudent.html"
-				th:href="@{/faculty/editStudent/}+${s.id}"> Edit </a></td>
-			<td><a href="DeleteStudent.html"
-				th:href="@{/faculty/deleteStudent/}+${s.id}"> Delete </a></td>
+	<div class="container">
 
-		</tr>
-	</table>
-	<h5 th:utext="#{courses.header}" align="center">header</h5>
-	<table align="center" class="table table-striped" border="1">
-		<tr th:each="c:${courses}">
-			<td th:text=${c.courseName}>Name</td>
-			<td th:text=${c.startDate}>Start Date</td>
-			<td th:text=${c.endDate}>End Date</td>
-			<td><a href="EditCourse.html"
-				th:href="@{/faculty/editCourse/}+${c.id}"> Edit </a></td>
-			<td><a href="DeleteProduct.html"
-				th:href="@{/faculty/deleteCourse/}+${c.id}"> Delete </a></td>
-		</tr>
-	</table>
+		<div class="row">
+
+			<table class="table table-striped">
+				<tr>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>DOB</th>
+					<th>Degree</th>
+					<th>Semester</th>
+					<th>Address</th>
+					<th>Mobile</th>
+					<th>GPA</th>
+					<th>Password</th>
+					<th>Mail</th>
+					<th>Edit</th>
+					<th>Delete</th>
+
+
+
+				</tr>
+				<tr th:each="s:${students}">
+					<td th:text=${s.studentName}>Name</td>
+					<td th:text=${s.gender}>Gender</td>
+					<td th:text=${s.DOB}>Dob</td>
+					<td th:text=${s.degree}>Degree</td>
+					<td th:text=${s.semester}>Semester</td>
+					<td th:text=${s.address}>Address</td>
+					<td th:text=${s.mobile}>Mobile</td>
+					<td th:text=${s.gpa}>GPA</td>
+					<td th:text=${s.password}>GPA</td>
+					<td th:text=${s.mailid}>Mail</td>
+
+
+					<td><a href="EditStudent.html"
+						th:href="@{/faculty/editStudent/}+${s.id}"> Edit </a></td>
+					<td><a href="DeleteStudent.html"
+						th:href="@{/faculty/deleteStudent/}+${s.id}"> Delete </a></td>
+
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+			<h5 th:utext="#{courses.header}" align="center">header</h5>
+			<table class="table table-striped">
+				<tr th:each="c:${courses}">
+					<td th:text=${c.courseName}>Name</td>
+					<td th:text=${c.startDate}>Start Date</td>
+					<td th:text=${c.endDate}>End Date</td>
+					<td><a href="EditCourse.html"
+						th:href="@{/faculty/editCourse/}+${c.id}"> Edit </a></td>
+					<td><a href="DeleteProduct.html"
+						th:href="@{/faculty/deleteCourse/}+${c.id}"> Delete </a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div th:insert="~{home :: copy}">Copy</div>
 </body>
 </html>
