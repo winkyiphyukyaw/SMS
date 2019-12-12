@@ -96,7 +96,7 @@ public class HomeController {
 		Staff st = Frepo.findStaffByid(userId);
 		if (st.getPassword().equals(Password)) 
 		{
-			return "redirect:/Admin/department";
+			return "redirect:/Admin/AdminHome";
 		}
 		else
 			return "Adminlogin";

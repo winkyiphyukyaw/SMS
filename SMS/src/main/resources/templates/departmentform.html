@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Department Form Page</title>
+</head>
+<body>
+	<h1>Department Form Page</h1>
+	<form th:object="${department}" th:action="@{/Admin/saveDepartment}"
+		method="get">
+		<fieldset>
+			Staffs: <input type="text" th:field="*{staffs}">
+		</fieldset>
+		<fieldset>
+			Courses: <input type="text" th:field="*{courses}">
+		</fieldset>
+		<fieldset>
+			Name: <input type="text" th:field="*{name}">
+		</fieldset>
+		
+<button type="submit">Submit</button>
+	</form>
+
+</body>
+</html>

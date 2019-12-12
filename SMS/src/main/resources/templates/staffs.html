@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="ISO-8859-1">
+<title>Staff Particulars</title>
+</head>
+<body>
+	<div class="w3-container">
+		<div align="center" id="myDiv"
+			style="height: 100px; width: 1400px; background-color: lightblue">
+			<h1>Staff Particulars</h1>
+		</div>
+		<div class="w3-bar w3-border w3-light-grey" style="width: 1400px;">
+			<a href="Home" class="w3-bar-item w3-button" th:href="@{/sms/home}">Home</a>
+			<a href="new" class="w3-bar-item w3-button"
+				th:href="@{/faculty/listStudent}">View Student</a> <a href="new"
+				class="w3-bar-item w3-button" th:href="@{/faculty/list}">View
+				Courses</a> <a href="new"
+				class="w3-bar-item w3-button w3-green w3-right">Logout</a>
+		</div>
+		<div align="center" class="column" id="myDiv"
+			style="height: 800px; width: 1400px;">
+			<table border="1" cellpadding="10" th:each="staff:${staffs}">
+				<tr>
+					<th align="Left">Staff ID</th>
+					<td th:text="${staff.id}">Staff ID</td>
+				</tr>
+				<tr>
+					<th align="Left">Staff Name</th>
+					<td th:text="${staff.name}">name</td>
+				</tr>
+				<tr>
+					<th align="Left">Role</th>
+					<td th:text="${staff.role}">role</td>
+				</tr>
+				<!-- <tr>
+					<th align="Left">Department</th>
+					<td th:text="${staff.departmentName}">departmentName</td>
+				</tr>
+				<tr>
+					<th align="Left">Courses</th>
+					<td th:text="${staff.courses}">courses</td>
+				</tr>
+ -->
+				<tr>
+					<th align="Left">Edit Particulars</th>
+					<td><a href="EditStaff.html"
+						th:href="@{/editStaff/}+${staff.id}"> Edit </a></td>
+				</tr>
+
+			</table>
+		</div>
+
+
+		<div th:insert="~{home :: copy}">Copy</div>
+	</div>
+
+</body>
+</html>
